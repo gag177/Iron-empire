@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<title>IRON EMPIRE</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    background: #08090c;
+    color: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.app {
+    width: 100%;
+    max-width: 520px;
+    min-height: 100vh;
+    margin: auto;
+    padding-bottom: 90px;
+    background:
+        radial-gradient(circle at top, #242832 0%, #101218 35%, #08090c 75%);
+}
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding: 20px 18px 15px;
+    background: rgba(10,11,15,.88);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid #292d35;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: 900;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: #969daa;
+    font-size: 13px;
+    margin-top: 3px;
+}
+
+.card {
+    margin: 14px;
+    padding: 17px;
+    border-radius: 20px;
+    background: rgba(25,27,34,.94);
+    border: 1px solid #2b2f38;
+    box-shadow: 0 12px 35px rgba(0,0,0,.25);
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 850;
+    margin-bottom: 13px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.stat {
+    padding: 12px;
+    background: #101217;
+    border-radius: 14px;
+}
+
+.label {
+    color: #8e949f;
+    font-size: 12px;
+}
+
+.value {
+    font-size: 19px;
+    font-weight: 850;
+    margin-top: 4px;
+}
+
+.bar {
+    height: 7px;
+    margin-top: 8px;
+    background: #292d35;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: #fff;
+    border-radius: 20px;
+    transition: width .3s;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+button {
+    font-family: inherit;
+}
+
+.btn {
+    width: 100%;
+    min-height: 60px;
+    border: 0;
+    border-radius: 16px;
+    padding: 12px;
+    color: #fff;
+    background: #292d35;
+    font-size: 15px;
+    font-weight: 800;
+}
+
+.btn:active {
+    transform: scale(.97);
+}
+
+.primary {
+    background: #fff;
+    color: #090a0d;
+}
+
+.gold {
+    background: #554116;
+}
+
+.red {
+    background: #63242a;
+}
+
+.green {
+    background: #244b35;
+}
+
+.small {
+    color: #9298a3;
+    font-size: 12px;
+}
+
+.big {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.exercise {
+    padding: 15px;
+    border-radius: 16px;
+    background: #111318;
+    border: 1px solid #292d35;
+    margin-bottom: 10px;
+}
+
+.exercise:last-child {
+    margin-bottom: 0;
+}
+
+.exercise-name {
+    font-size: 17px;
+    font-weight: 850;
+}
+
+.exercise-record {
+    color: #999fa9;
+    font-size: 12px;
+    margin: 4px 0 11px;
+}
+
+.shop-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px 0;
+    border-bottom: 1px solid #2a2e36;
+}
+
+.shop-item:last-child {
+    border-bottom: 0;
+}
+
+.buy {
+    border: 0;
+    border-radius: 12px;
+    background: #fff;
+    color: #111;
+    padding: 10px 13px;
+    font-weight: 850;
+}
+
+.log {
+    color: #c5cad2;
+    line-height: 1.55;
+    font-size: 14px;
+}
+
+.record {
+    display: flex;
+    justify-content: space-between;
+    padding: 13px 0;
+    border-bottom: 1px solid #292d35;
+}
+
+.record:last-child {
+    border: 0;
+}
+
+nav {
+    position: fixed;
+    z-index: 20;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    max-width: 520px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+    background: rgba(15,16,21,.94);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid #292d35;
+}
+
+nav button {
+    border: 0;
+    background: transparent;
+    color: #8e949f;
+    font-size: 11px;
+    padding: 5px;
+}
+
+nav button b {
+    display: block;
+    font-size: 21px;
+    margin-bottom: 2px;
+}
+
+nav button.active {
+    color: #fff;
+}
+
+.notice {
+    padding: 13px;
+    border-radius: 14px;
+    background: #20232b;
+    color: #cfd3da;
+    font-size: 13px;
+    line-height: 1.4;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header>
+    <div class="logo">🏆 IRON EMPIRE</div>
+    <div class="subtitle" id="dateText">День 1 • 07:42</div>
+</header>
+
+<main id="screen"></main>
+
+<nav>
+
+<button id="nav-home" onclick="showPage('home')">
+    <b>🏠</b>
+    Главная
+</button>
+
+<button id="nav-workout" onclick="showPage('workout')">
+    <b>🏋️</b>
+    Зал
+</button>
+
+<button id="nav-shop" onclick="showPage('shop')">
+    <b>🏪</b>
+    Магазин
+</button>
+
+<button id="nav-profile" onclick="showPage('profile')">
+    <b>👤</b>
+    Профиль
+</button>
+
+</nav>
+
+</div>
+
+<script>
+
+/* =========================
+   СОХРАНЕНИЕ
+========================= */
+
+const SAVE_KEY = "IRON_EMPIRE_SAVE";
+
+let game = JSON.parse(localStorage.getItem(SAVE_KEY));
+
+if (!game) {
+
+    game = {
+        day: 1,
+
+        level: 1,
+        xp: 0,
+
+        money: 500,
+
+        health: 100,
+        energy: 100,
+        motivation: 80,
+
+        strength: 10,
+        endurance: 10,
+        recovery: 10,
+
+        records: {
+            bench: 100,
+            squat: 120,
+            deadlift: 140,
+            pullups: 8
+        },
+
+        inventory: [],
+
+        logs: [
+            "Ты впервые вошёл в Iron Empire.",
+            "Тренер: «Докажи, что ты достоин этого зала.»"
+        ]
+    };
+}
+
+function saveGame() {
+    localStorage.setItem(
+        SAVE_KEY,
+        JSON.stringify(game)
+    );
+}
+
+/* =========================
+   ОСНОВНЫЕ ФУНКЦИИ
+========================= */
+
+function xpNeeded() {
+    return game.level * 100;
+}
+
+function clampStats() {
+
+    game.energy =
+        Math.max(0, Math.min(100, game.energy));
+
+    game.health =
+        Math.max(0, Math.min(100, game.health));
+
+    game.motivation =
+        Math.max(0, Math.min(100, game.motivation));
+}
+
+function addLog(text) {
+
+    game.logs.unshift(text);
+
+    game.logs =
+        game.logs.slice(0, 8);
+
+    saveGame();
+}
+
+function addMoney(amount) {
+
+    game.money += amount;
+
+    saveGame();
+}
+
+function addXP(amount) {
+
+    game.xp += amount;
+
+    let levelUps = 0;
+
+    while (game.xp >= xpNeeded()) {
+
+        game.xp -= xpNeeded();
+
+        game.level++;
+
+        game.strength += 2;
+        game.endurance += 1;
+
+        levelUps++;
+    }
+
+    if (levelUps > 0) {
+
+        addLog(
+            "🎉 НОВЫЙ УРОВЕНЬ! Ты достиг LVL " +
+            game.level + "!"
+        );
+    }
+
+    saveGame();
+}
+
+function hasItem(item) {
+    return game.inventory.includes(item);
+}
+
+/* =========================
+   НАВИГАЦИЯ
+========================= */
+
+function setActive(page) {
+
+    document
+        .querySelectorAll("nav button")
+        .forEach(button =>
+            button.classList.remove("active")
+        );
+
+    const button =
+        document.getElementById("nav-" + page);
+
+    if (button)
+        button.classList.add("active");
+}
+
+function showPage(page) {
+
+    setActive(page);
+
+    if (page === "home")
+        renderHome();
+
+    if (page === "workout")
+        renderWorkout();
+
+    if (page === "shop")
+        renderShop();
+
+    if (page === "profile")
+        renderProfile();
+}
+
+/* =========================
+   ГЛАВНАЯ
+========================= */
+
+function renderHome() {
+
+    const percent =
+        (game.xp / xpNeeded()) * 100;
+
+    document.getElementById("screen").innerHTML = `
+
+    <div class="card">
+
+        <div class="title">
+            👤 Твой атлет
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="label">
+                    Уровень
+                </div>
+
+                <div class="value">
+                    LVL ${game.level}
+                </div>
+
+                <div class="bar">
+                    <div
+                        class="fill"
+                        style="width:${percent}%">
+                    </div>
+                </div>
+
+                <div class="small">
+                    ${game.xp}/${xpNeeded()} XP
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="label">
+                    💰 Деньги
+                </div>
+
+                <div class="value">
+                    $${game.money}
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="label">
+                    ⚡ Энергия
+                </div>
+
+                <div class="value">
+                    ${game.energy}/100
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="label">
+                    ❤️ Здоровье
+                </div>
+
+                <div class="value">
+                    ${game.health}/100
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="title">
+            🔥 Сегодня
+        </div>
+
+        <div class="notice">
+            Тренер подготовил для тебя
+            новую тренировку.
+            <br><br>
+            Чем больше тренируешься —
+            тем сильнее становишься.
+        </div>
+
+        <br>
+
+        <button
+            class="btn primary"
+            onclick="showPage('workout')">
+
+            🏋️ НАЧАТЬ ТРЕНИРОВКУ
+
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <div class="title">
+            📜 Последние события
+        </div>
+
+        <div class="log">
+
+            ${game.logs
+                .map(log => "• " + log)
+                .join("<br>")}
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+/* =========================
+   ТРЕНИРОВКА
+========================= */
+
+function renderWorkout() {
+
+    document.getElementById("screen").innerHTML = `
+
+    <div class="card">
+
+        <div class="title">
+            🏋️ Тренировка
+        </div>
+
+        <div class="small">
+            Выбирай упражнение.
+            Случайно может выпасть
+            критический подход.
+        </div>
+
+        <br>
+
+        <div class="exercise">
+
+            <div class="exercise-name">
+                🏋️ Жим лёжа
+            </div>
+
+            <div class="exercise-record">
+                Рекорд:
+                ${game.records.bench} кг
+            </div>
+
+            <button
+                class="btn"
+                onclick="doLift('bench')">
+
+                ЖАТЬ
+
+            </button>
+
+        </div>
+
+        <div class="exercise">
+
+            <div class="exercise-name">
+                🦵 Присед
+            </div>
+
+            <div class="exercise-record">
+                Рекорд:
+                ${game.records.squat} кг
+            </div>
+
+            <button
+                class="btn"
+                onclick="doLift('squat')">
+
+                ПРИСЕДАТЬ
+
+            </button>
+
+        </div>
+
+        <div class="exercise">
+
+            <div class="exercise-name">
+                ⚰️ Становая тяга
+            </div>
+
+            <div class="exercise-record">
+                Рекорд:
+                ${game.records.deadlift} кг
+            </div>
+
+            <button
+                class="btn"
+                onclick="doLift('deadlift')">
+
+                ТЯНУТЬ
+
+            </button>
+
+        </div>
+
+        <div class="exercise">
+
+            <div class="exercise-name">
+                🦅 Подтягивания
+            </div>
+
+            <div class="exercise-record">
+                Рекорд:
+                ${game.records.pullups} повторений
+            </div>
+
+            <button
+                class="btn"
+                onclick="doPullups()">
+
+                ПОДТЯГИВАТЬСЯ
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="title">
+            😴 Восстановление
+        </div>
+
+        <button
+            class="btn green"
+            onclick="rest()">
+
+            ОТДОХНУТЬ
+
+        </button>
+
+    </div>
+
+    `;
+}
+
+/* =========================
+   СИЛОВЫЕ УПРАЖНЕНИЯ
+========================= */
+
+function doLift(type) {
+
+    if (game.energy < 15) {
+
+        addLog(
+            "❌ Слишком мало энергии."
+        );
+
+        renderWorkout();
+
+        return;
+    }
+
+    let record =
+        game.records[type];
+
+    let critical =
+        Math.random() < 0.20;
+
+    let bonus = 0;
+
+    if (
+        type === "bench" &&
+        hasItem("benchshirt")
+    ) {
+        bonus += 5;
+    }
+
+    let weight;
+
+    if (critical) {
+
+        weight =
+            record +
+            10 +
+            bonus;
+
+    } else {
+
+        weight =
+            record * 0.8 +
+            bonus;
+    }
+
+    weight =
+        Math.round(weight / 2.5) * 2.5;
+
+    let xp = critical ? 35 : 20;
+
+    if (hasItem("creatine"))
+        xp *= 1.05;
+
+    if (hasItem("gloves"))
+        xp *= 1.10;
+
+    xp = Math.round(xp);
+
+    game.energy -=
+        critical ? 30 : 20;
+
+    game.motivation +=
+        critical ? 5 : 2;
+
+    addMoney(
+        critical ? 50 : 20
+    );
+
+    if (critical) {
+
+        game.records[type] =
+            Math.max(
+                game.records[type],
+                weight
+            );
+
+        let name =
+            type === "bench"
+                ? "Жим"
+                : type === "squat"
+                    ? "Присед"
+                    : "Становая";
+
+        addLog(
+            `🔥 КРИТИЧЕСКИЙ ПОДХОД! ${name}: ${weight} кг!`
+        );
+
+    } else {
+
+        let name =
+            type === "bench"
+                ? "жим"
+                : type === "squat"
+                    ? "присед"
+                    : "становую";
+
+        addLog(
+            `💪 Хороший подход: ${name} ${weight} кг. +${xp} XP`
+        );
+    }
+
+    addXP(xp);
+
+    clampStats();
+
+    saveGame();
+
+    renderWorkout();
+}
+
+/* =========================
+   ПОДТЯГИВАНИЯ
+========================= */
+
+function doPullups() {
+
+    if (game.energy < 12) {
+
+        addLog(
+            "❌ Слишком мало энергии."
+        );
+
+        renderWorkout();
+
+        return;
+    }
+
+    let bonus =
+        Math.random() < 0.25
+            ? 2
+            : 1;
+
+    let reps =
+        game.records.pullups +
+        bonus;
+
+    game.records.pullups =
+        Math.max(
+            game.records.pullups,
+            reps
+        );
+
+    game.energy -= 15;
+
+    game.motivation += 2;
+
+    addMoney(15);
+
+    addXP(15);
+
+    addLog(
+        `🦅 Ты сделал ${reps} подтягиваний!`
+    );
+
+    clampStats();
+
+    saveGame();
+
+    renderWorkout();
+}
+
+/* =========================
+   ОТДЫХ
+========================= */
+
+function rest() {
+
+    game.energy += 35;
+
+    game.health += 10;
+
+    game.motivation += 5;
+
+    game.day++;
+
+    addLog(
+        "😴 Ты отдохнул и восстановился."
+    );
+
+    clampStats();
+
+    saveGame();
+
+    renderWorkout();
+}
+
+/* =========================
+   МАГАЗИН
+========================= */
+
+const shopItems = [
+
+    {
+        id: "protein",
+        name: "🥤 Протеин",
+        price: 30,
+        description: "+10 энергии"
+    },
+
+    {
+        id: "creatine",
+        name: "🧪 Креатин",
+        price: 50,
+        description: "+5% XP за силовые подходы"
+    },
+
+    {
+        id: "energy",
+        name: "⚡ Энергетик",
+        price: 15,
+        description: "+25 энергии"
+    },
+
+    {
+        id: "belt",
+        name: "🏋️ Пояс",
+        price: 100,
+        description: "Усиление тяжёлых подходов"
+    },
+
+    {
+        id: "benchshirt",
+        name: "👕 Жимовая майка",
+        price: 150,
+        description: "+5 кг к жиму"
+    },
+
+    {
+        id: "shoes",
+        name: "👟 Кроссовки",
+        price: 200,
+        description: "+10 выносливости"
+    },
+
+    {
+        id: "gloves",
+        name: "🔥 IRON GLOVES",
+        price: 450,
+        description: "LEGENDARY: +10% XP"
+    }
+
+];
+
+function renderShop() {
+
+    document.getElementById("screen").innerHTML = `
+
+    <div class="card">
+
+        <div class="title">
+            🏪 Магазин
+        </div>
+
+        <div class="big">
+            $${game.money}
+        </div>
+
+        <div class="small">
+            Твои деньги
+        </div>
+
+        <br>
+
+        ${shopItems.map(item => `
+
+            <div class="shop-item">
+
+                <div>
+
+                    <b>${item.name}</b>
+
+                    <div class="small">
+                        ${item.description}
+                    </div>
+
+                </div>
+
+                ${
+                    hasItem(item.id)
+
+                    ?
+
+                    `<span class="small">
+                        КУПЛЕНО
+                    </span>`
+
+                    :
+
+                    `<button
+                        class="buy"
+                        onclick="buyItem('${item.id}')">
+
+                        $${item.price}
+
+                    </button>`
+                }
+
+            </div>
+
+        `).join("")}
+
+    </div>
+
+    `;
+}
+
+function buyItem(id) {
+
+    const item =
+        shopItems.find(
+            x => x.id === id
+        );
+
+    if (!item)
+        return;
+
+    if (game.money < item.price) {
+
+        addLog(
+            "❌ Недостаточно денег."
+        );
+
+        renderShop();
+
+        return;
+    }
+
+    game.money -= item.price;
+
+    game.inventory.push(id);
+
+    if (id === "energy") {
+
+        game.energy += 25;
+    }
+
+    if (id === "protein") {
+
+        game.energy += 10;
+    }
+
+    if (id === "shoes") {
+
+        game.endurance += 10;
+    }
+
+    addLog(
+        `🛒 Куплено: ${item.name}`
+    );
+
+    clampStats();
+
+    saveGame();
+
+    renderShop();
+}
+
+/* =========================
+   ПРОФИЛЬ
+========================= */
+
+function renderProfile() {
+
+    document.getElementById("screen").innerHTML = `
+
+    <div class="card">
+
+        <div class="title">
+            👤 Персонаж
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                <div class="label">
+                    💪 Сила
+                </div>
+                <div class="value">
+                    ${game.strength}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="label">
+                    🫁 Выносливость
+                </div>
+                <div class="value">
+                    ${game.endurance}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="label">
+                    🧠 Восстановление
+                </div>
+                <div class="value">
+                    ${game.recovery}
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="label">
+                    🔥 Мотивация
+                </div>
+                <div class="value">
+                    ${game.motivation}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="title">
+            🏆 Рекорды
+        </div>
+
+        <div class="record">
+            <span>🏋️ Жим</span>
+            <b>${game.records.bench} кг</b>
+        </div>
+
+        <div class="record">
+            <span>🦵 Присед</span>
+            <b>${game.records.squat} кг</b>
+        </div>
+
+        <div class="record">
+            <span>⚰️ Становая</span>
+            <b>${game.records.deadlift} кг</b>
+        </div>
+
+        <div class="record">
+            <span>🦅 Подтягивания</span>
+            <b>${game.records.pullups}</b>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <div class="title">
+            🎒 Инвентарь
+        </div>
+
+        ${
+            game.inventory.length
+
+            ?
+
+            game.inventory
+                .map(id => {
+
+                    const item =
+                        shopItems.find(
+                            x => x.id === id
+                        );
+
+                    return "• " +
+                        item.name;
+
+                })
+                .join("<br>")
+
+            :
+
+            `<span class="small">
+                Инвентарь пуст.
+            </span>`
+        }
+
+    </div>
+
+    <div class="card">
+
+        <button
+            class="btn red"
+            onclick="resetGame()">
+
+            ⚠️ СБРОСИТЬ ПРОГРЕСС
+
+        </button>
+
+    </div>
+
+    `;
+}
+
+/* =========================
+   СБРОС
+========================= */
+
+function resetGame() {
+
+    const answer =
+        confirm(
+            "Ты точно хочешь удалить весь прогресс?"
+        );
+
+    if (!answer)
+        return;
+
+    localStorage.removeItem(
+        SAVE_KEY
+    );
+
+    location.reload();
+}
+
+/* =========================
+   ЧАСЫ
+========================= */
+
+function updateTime() {
+
+    const now =
+        new Date();
+
+    const hours =
+        String(now.getHours())
+        .padStart(2,"0");
+
+    const minutes =
+        String(now.getMinutes())
+        .padStart(2,"0");
+
+    document.getElementById(
+        "dateText"
+    ).textContent =
+        `День ${game.day} • ${hours}:${minutes}`;
+}
+
+setInterval(
+    updateTime,
+    1000
+);
+
+/* =========================
+   ЗАПУСК
+========================= */
+
+updateTime();
+
+showPage("home");
+
+</script>
+
+</body>
+</html>
